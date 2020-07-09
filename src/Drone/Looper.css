@@ -1,0 +1,66 @@
+.looper-container {
+	font-family: "Raleway", sans-serif;
+	font-weight: bold;
+	width: 445px;
+	padding-top: 40px;
+}
+
+.looper-main {
+	border: 2px solid black;
+	border-radius: 10px;
+	height: 100px;
+	margin-bottom: 30px;
+	display: flex;
+}
+
+.control-button {
+	font-family: "Raleway", sans-serif;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 35px;
+	margin: 0px 10px 10px 0px;
+	height: 20px;
+	width: 20px;
+	border: 2px solid black;
+	border-radius: 7px;
+}
+
+.control-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.event {
+	height: 60px;
+	width: 70px;
+	border: 2px solid black;
+	border-radius: 8px;
+	margin: 8px;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	font-size: 14px;
+}
+
+.arrow-right {
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid black;
+}
+
+.arrow-right:active {
+	animation: rotate 0.2s linear;
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(90deg);
+	}
+}

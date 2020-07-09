@@ -1,0 +1,53 @@
+.title {
+	font-family: "Raleway", sans-serif;
+	font-size: 40px;
+	font-weight: bold;
+	display: flex;
+	position: absolute;
+	left: 0;
+}
+
+.navmain {
+	position: relative;
+	height: 50px;
+	border-bottom: 2px solid black;
+	display: flex;
+	justify-content: center;
+}
+
+.menuitem {
+	font-family: "Raleway", sans-serif;
+	font-size: 30px;
+	font-weight: bold;
+	margin-right: 20px;
+}
+
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+@media (max-width: 850px) {
+	.title {
+		font-size: 20px;
+		position: relative;
+	}
+
+	.menuitem {
+		font-size: 20px;
+	}
+
+	.navmain {
+		height: 60px;
+		display: grid;
+	}
+}

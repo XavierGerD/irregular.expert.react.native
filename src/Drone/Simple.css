@@ -1,0 +1,244 @@
+@font-face {
+	font-family: "Bravura";
+	src: url("/fonts/woff/Bravura.woff") format("woff"),
+		url("/fonts/svg/Bravura.svg") format("svg"),
+		url("/fonts/otf/Bravura.otf") format("otf");
+}
+
+* {
+	user-select: none;
+}
+
+.drone-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.whitenotebutton {
+	font-family: "Raleway", sans-serif;
+	font-size: 25px;
+	font-weight: bold;
+	width: 60px;
+	height: 200px;
+	border: 2px solid black;
+	border-radius: 6px;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	margin-right: 2px;
+	background-color: white;
+	color: black;
+}
+
+.whitenotebutton.selected {
+	background-color: #6b6b6b;
+	color: white;
+}
+
+.whitenotebutton:hover {
+	background-color: #e6e6e6;
+}
+.whitenotebutton.selected:hover {
+	background-color: #6b6b6b;
+}
+
+.blacknotebutton {
+	font-family: "Raleway", sans-serif;
+	font-size: 25px;
+	font-weight: bold;
+	width: 50px;
+	height: 130px;
+	border: 2px solid black;
+	border-radius: 6px;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	margin-right: 11px;
+	background-color: black;
+	color: white;
+	word-wrap: break-word;
+	pointer-events: all;
+}
+
+.blacknotebutton.selected {
+	background-color: #6b6b6b;
+}
+
+.blacknotebutton:hover {
+	background-color: #4a4a4a;
+}
+
+.blacknotebutton.selected:hover {
+	background-color: #6b6b6b;
+}
+
+.notespacer {
+	width: 64px;
+	margin-right: 5px;
+}
+
+.blacknotes {
+	position: relative;
+	display: flex;
+	margin-left: 40px;
+	height: 130px;
+	z-index: 1000;
+	pointer-events: none;
+}
+
+.whitenotes {
+	position: relative;
+	margin-top: -130px;
+	display: flex;
+	z-index: 1;
+}
+
+.octave-selector {
+	font-family: "Raleway", sans-serif;
+	font-size: 25px;
+	font-weight: bold;
+	height: 40px;
+	width: 40px;
+	border: 2px solid black;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 10px;
+}
+
+.octave-selector.selected {
+	background-color: black;
+	color: white;
+}
+
+.octave-selector:hover {
+	background-color: #e6e6e6;
+}
+
+.octave-selector.selected:hover {
+	background-color: black;
+}
+
+.waveselector {
+	font-family: "Raleway", sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	height: 30px;
+	width: 100px;
+	border: 2px solid black;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.waveselector.selected {
+	background-color: black;
+	color: white;
+}
+
+.waveselector:hover {
+	background-color: #e6e6e6;
+}
+
+.waveselector.selected:hover {
+	background-color: black;
+}
+
+.select-container {
+	margin: 22px;
+	font-family: "Raleway", sans-serif;
+	font-weight: bold;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.slider-vertical {
+	-webkit-appearance: none;
+	appearance: none;
+	transform-origin: 0px 0px;
+	transform: rotate(-90deg) translate(-160px, 25px);
+	background-color: grey;
+	border-radius: 7px;
+	opacity: 0.7;
+	-webkit-transition: 0.2s;
+	transition: opacity 0.2s;
+	height: 10px;
+	width: 160px;
+	margin-top: 20px;
+}
+
+.slider-vertical:hover {
+	opacity: 1;
+}
+
+.slider-vertical:focus {
+	outline: none;
+}
+
+.slider-vertical::-webkit-slider-thumb {
+	appearance: none;
+	width: 15px;
+	height: 30px;
+	background-color: white;
+	border: 2px solid black;
+	border-radius: 5px;
+}
+
+.slider-vertical::-webkit-slider-thumb:hover {
+	background-color: #e6e6e6;
+}
+
+.vertical-slider-container {
+	font-family: "Raleway", sans-serif;
+	font-weight: bold;
+	width: 70px;
+}
+
+.slider {
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: grey;
+	border-radius: 7px;
+	opacity: 0.7;
+	-webkit-transition: 0.2s;
+	transition: opacity 0.2s;
+	height: 5px;
+	width: 200px;
+	margin-top: 20px;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider:focus {
+	outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+	appearance: none;
+	width: 15px;
+	height: 30px;
+	background-color: white;
+	border: 2px solid black;
+	border-radius: 5px;
+}
+
+.slider::-webkit-slider-thumb:hover {
+	background-color: #e6e6e6;
+}
+
+.cents-selector {
+	font-family: "Raleway", sans-serif;
+	font-weight: bold;
+	display: flex;
+	font-size: 22px;
+	margin-top: 10px;
+	justify-content: center;
+	align-items: center;
+}

@@ -1,0 +1,23 @@
+.tab {
+	font-family: "Raleway", sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+	border: 2px solid black;
+	width: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 7px;
+}
+
+.tab:hover {
+	background-color: #e6e6e6;
+}
+
+.tab-container {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+	width: 230px;
+	height: 40px;
+}
