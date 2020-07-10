@@ -26,12 +26,14 @@ const ValueSelectors = (props: IValueSelectorsProps) => {
         justifyContent: 'center',
       }}>
       <Text style={rhythmPracticeStyles.ralewayFont}>Values: {'   '}</Text>
-      {values.map((value: number[]) => {
+      {values.map((value: number[], i: number) => {
         //sum of all the subdivisions in the bar this is displayed next to the radio button
         const sumValue = value.reduce(reducer, 0);
         const checked = R.includes(value, currentSelectedSizes);
         return (
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View
+            key={i + sumValue}
+            style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text style={rhythmPracticeStyles.ralewayFont}>{sumValue}</Text>
             <Text style={rhythmPracticeStyles.ralewayFont}>
               {sumValue === 8 ? ' (4/4)' : null}

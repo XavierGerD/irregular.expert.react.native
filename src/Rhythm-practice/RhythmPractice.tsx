@@ -36,6 +36,7 @@ interface IRhythmPracticeState {
   subdivisionCount: number;
   mode: string;
   playEveryEighth: boolean;
+  showInstructions: boolean;
 }
 
 const getInitialState = () => {
@@ -57,8 +58,9 @@ const getInitialState = () => {
     lastBeat: new Date() / 1,
     repCount: 1,
     subdivisionCount: 1,
-    mode: 'bar',
+    mode: 'tuplet',
     playEveryEighth: false,
+    showInstructions: false,
   };
 };
 
@@ -155,6 +157,7 @@ class RhythmPractice extends Component {
       displayedTuplets.shift();
       //push new unicode tuplet
       displayedTuplets.push(fillInTuplets(e));
+      console.log(displayedTuplets);
       //if tuplet is 4, don't show tuplet brackets
       if (e[0] === 4) {
         displayedTuplets[1] = null;
@@ -181,7 +184,6 @@ class RhythmPractice extends Component {
       // set an event every subdivision of the pulse
       divider = 2;
       unevenBeat = subdivisionCount % 2 === 1;
-      // console.log("uneven beat?", unevenBeat);
     } else if (this.state.mode === 'tuplet') {
       //divide whole bar by the time signature
       divider = this.state.timeSignatures[0];
@@ -236,7 +238,6 @@ class RhythmPractice extends Component {
       }
       if (repCount > parseInt(this.state.repInput)) {
         //reset repcount and prepare to load new image at next loop
-        // console.log("resetting repcount!");
         repCount = 1;
         if (this.state.phase === 'firstFigure') {
           this.setState({phase: 'play'});
@@ -316,16 +317,20 @@ class RhythmPractice extends Component {
               this.state.allowEmptyBars,
             ),
           );
+          timeSignatures[i] = newTimeSignature.reduce(reducer, 0);
           if (this.state.mode === 'bar') {
-            // rewrite the time signature as the sum of all subdivisions
-            timeSignatures[i] = newTimeSignature.reduce(reducer, 0);
+            return getTimeSig(newTimeSignature, this.state.mode);
           }
+
           if (this.state.mode === 'tuplet') {
-            if (newTimeSignature[0] === 4) {
+            displayedTuplets.push(fillInTuplets(timeSignatures));
+
+            if (timeSignatures[0] === 4) {
               displayedTuplets[i] = null;
             }
+
+            return getTimeSig([1], this.state.mode);
           }
-          return getTimeSig(newTimeSignature, this.state.mode);
         },
       );
 
@@ -363,6 +368,10 @@ class RhythmPractice extends Component {
     });
   };
 
+  closeModal = () => {
+    this.setState({showInstructions: false});
+  };
+
   render = () => {
     return (
       <View style={rhythmPracticeStyles.rhythmContainer}>
@@ -371,6 +380,7 @@ class RhythmPractice extends Component {
           allowEmptyBarChecker={this.allowEmptyBarChecker}
           checkBoxChecker={this.checkBoxChecker}
           clickFrequencyChecker={this.clickFrequencyChecker}
+          closeModal={this.closeModal}
           mode={this.state.mode}
           modeChangeHandler={this.modeChangeHandler}
           playAnswer={this.state.playAnswer}
@@ -379,6 +389,7 @@ class RhythmPractice extends Component {
           repInput={this.state.repInput}
           repInputHandler={this.repInputHandler}
           size={this.state.size}
+          showInstructions={this.state.showInstructions}
           tempoInput={this.state.tempoInput}
           tempoInputHandler={this.tempoInputHandler}
         />
@@ -394,7 +405,7 @@ class RhythmPractice extends Component {
             <View style={{flexDirection: 'row'}}>
               {this.state.displayedFigures.map((bar, i) => {
                 return (
-                  <View style={{flexDirection: 'row'}}>
+                  <View key={i + 'bar'} style={{flexDirection: 'row'}}>
                     <View
                       style={{
                         flexDirection: 'column',
@@ -405,7 +416,9 @@ class RhythmPractice extends Component {
                         style={{
                           fontFamily: 'Bravura',
                           fontSize: 60,
-                          marginTop: -100,
+                          marginTop: -80,
+                          marginLeft: 10,
+                          marginRight: 10,
                         }}>
                         {this.state.displayedTimeSignatures[i]}
                       </Text>
@@ -414,7 +427,8 @@ class RhythmPractice extends Component {
                           fontFamily: 'Bravura',
                           fontSize: 60,
                           marginTop: -200,
-                          // lineHeight: 15,
+                          marginLeft: 10,
+                          marginRight: 10,
                         }}>
                         {this.state.mode === 'bar' &&
                           this.state.timeSignatures[i] === 8 &&
@@ -427,16 +441,16 @@ class RhythmPractice extends Component {
                       </Text>
                     </View>
                     <View style={{flexDirection: 'row'}}>
-                      <View className="rp-tupletbrackets">
+                      <View style={rhythmPracticeStyles.rpTupletBrackets}>
                         {this.state.displayedTuplets[i]}
                       </View>
                       {bar}
                     </View>
-                    {/* {i === 0 && (
-                      <Text className="rp-barline">
+                    {i === 0 && (
+                      <Text style={rhythmPracticeStyles.rpBarline}>
                         {barlines.singleBarline}
                       </Text>
-                    )} */}
+                    )}
                   </View>
                 );
               })}
@@ -446,38 +460,41 @@ class RhythmPractice extends Component {
         <View
           style={{
             flexDirection: 'row',
-            paddingBottom: 50,
-            // alignItems: 'center',
-            // justifyContent: 'space-around',
-            // width: 200,
+            paddingBottom: 5,
           }}>
           <TouchableOpacity
-            style={{
-              width: 120,
-              height: 50,
-              padding: 10,
-              backgroundColor: 'green',
-              borderRadius: 10,
-            }}
+            style={rhythmPracticeStyles.startButton}
             onPress={this.startExercise}>
             <Text style={{fontFamily: 'Bravura', fontSize: 40, marginTop: -50}}>
               Start!
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{
-              width: 120,
-              height: 50,
-              padding: 10,
-              backgroundColor: 'red',
-              borderRadius: 10,
-            }}
+            style={rhythmPracticeStyles.stopButton}
             onPress={this.stopExercise}>
             <Text style={{fontFamily: 'Bravura', fontSize: 40, marginTop: -50}}>
               Stop!
             </Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={{backgroundColor: '#0345ad', height: 40, borderRadius: 10}}
+          onPress={() =>
+            this.setState({
+              showInstructions: true,
+            })
+          }>
+          <Text
+            style={{
+              fontFamily: 'Bravura',
+              fontSize: 30,
+              marginTop: -30,
+              paddingLeft: 5,
+              paddingRight: 5,
+            }}>
+            {this.state.showInstructions ? 'Hide Controls' : 'Show Controls'}
+          </Text>
+        </TouchableOpacity>
         {/* <Instructions /> */}
       </View>
     );

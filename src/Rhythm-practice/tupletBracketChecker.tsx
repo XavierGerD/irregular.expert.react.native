@@ -1,8 +1,11 @@
-import React from "react";
-import { tupletBracketCodes, tupletCodes } from "../UnicodeAssignment";
+import React from 'react';
+import {View, Text} from 'react-native';
 
-const tupletChecker = (i: number[]) => {
-  switch (i[0]) {
+import {rhythmPracticeStyles} from './RhythmPracticeStyles';
+import {tupletBracketCodes, tupletCodes} from '../UnicodeAssignment';
+
+const tupletChecker = (tupletValue: number[]) => {
+  switch (tupletValue[0]) {
     case 3:
       return tupletCodes.three;
     case 4:
@@ -18,18 +21,12 @@ const tupletChecker = (i: number[]) => {
   }
 };
 
-const fillInTuplets = (size: number[]) => {
-  //return array
-  const tupletBrackets: JSX.Element[] = [];
-  //push the left-hand side bracket
-  tupletBrackets.push(<div>{tupletBracketCodes.left}</div>);
-  //push the tuplet value number
-  tupletBrackets.push(
-    <div className="rp-tupletvalue">{tupletChecker(size)}</div>
-  );
-  //push the right-hand side bracket
-  tupletBrackets.push(<div>{tupletBracketCodes.right}</div>);
-  return tupletBrackets;
-};
+const fillInTuplets = (size: number[]): JSX.Element[] => [
+  <Text style={rhythmPracticeStyles.rpBravura}>{tupletBracketCodes.left}</Text>,
+  <Text style={rhythmPracticeStyles.rpBravura}>{tupletChecker(size)}</Text>,
+  <Text style={rhythmPracticeStyles.rpBravura}>
+    {tupletBracketCodes.right}
+  </Text>,
+];
 
-export { fillInTuplets };
+export {fillInTuplets};

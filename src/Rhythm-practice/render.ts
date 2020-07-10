@@ -1,10 +1,10 @@
-import { timeSignatureCodes } from "../UnicodeAssignment";
-import { reducer } from "./reducer";
+import {timeSignatureCodes} from '../UnicodeAssignment';
+import {reducer} from './reducer';
 
-let getTimeSig = (e: number[], mode: string) => {
+let getTimeSig = (subdivisions: number[], mode: string) => {
   // in bar mode, 8 eight note is actually 4/4
-  let totalValue = e.reduce(reducer, 0);
-  if (mode === "bar" && totalValue === 8) {
+  let totalValue = subdivisions.reduce(reducer, 0);
+  if (mode === 'bar' && totalValue === 8) {
     totalValue = 4;
   }
   switch (totalValue) {
@@ -25,7 +25,7 @@ let getTimeSig = (e: number[], mode: string) => {
     case 8:
       return timeSignatureCodes.eight;
     default:
-      return "none";
+      return 'none';
   }
 };
 

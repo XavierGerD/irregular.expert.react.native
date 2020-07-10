@@ -1,7 +1,7 @@
 import {checkFirst, checkLast, checkMid} from './beamchecker';
 import {reducer} from './reducer';
 
-export const getRandomTimeSig = (size: number[][], mode: string) => {
+export const getRandomTimeSig = (size: number[][], mode: string): number[] => {
   //obtain a random time signature or tuplet value from all possible user-entered values
   let randomSig: number[] = size[Math.floor(Math.random() * size.length)];
   //if in tuplet mode, return the sum of all subdivisions

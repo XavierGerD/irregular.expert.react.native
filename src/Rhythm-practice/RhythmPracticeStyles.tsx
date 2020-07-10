@@ -1,11 +1,6 @@
-// @font-face {
-//   font-family: "Bravura";
-//   src: url("/fonts/woff/Bravura.woff") format("woff"),
-//     url("/fonts/svg/Bravura.svg") format("svg"),
-//     url("/fonts/otf/Bravura.otf") format("otf");
-// }
-
 import {StyleSheet} from 'react-native';
+
+import {FONT_SIZE} from '../constants';
 
 export const rhythmPracticeStyles = StyleSheet.create({
   main: {
@@ -46,19 +41,13 @@ export const rhythmPracticeStyles = StyleSheet.create({
     fontFamily: 'Raleway-Medium',
   },
 
-  // .controlContainer {
-  //   font-family: "Raleway", sans-serif;
-  //   padding-top: 10px;
-  // }
-
   practiceMain: {
     height: 260,
-    backgroundColor: 'blue',
+    position: 'relative',
   },
 
   rpControlpanel: {
     flexDirection: 'row',
-    // height: 150,
   },
 
   rpPanelsection: {
@@ -72,100 +61,48 @@ export const rhythmPracticeStyles = StyleSheet.create({
 
   rpBravura: {
     fontFamily: 'Bravura',
-    fontSize: 60,
+    fontSize: FONT_SIZE,
   },
-
-  // .rp-bars {
-  //   display: flex;
-  //   justify-content: space-between;
-  //   /* position: absolute; */
-  // }
 
   rpSingleStaff: {
     position: 'absolute',
-    fontFamily: 'Bravura',
-    paddingTop: 30,
-    transform: [{scaleX: 20}],
-    marginLeft: 100,
+    alignSelf: 'center',
+    left: 0,
+    top: 0,
+    paddingTop: FONT_SIZE / 2,
+    transform: [{scaleX: 60}],
   },
 
-  // .rp-bar {
-  //   font-family: "Bravura";
-  //   font-size: 60px;
-  //   display: flex;
-  //   position: relative;
-  // }
-
-  // .rp-barcontainer {
-  //   display: flex;
-  //   position: relative;
-  //   justify-content: center;
-  // }
-
-  // .rp-barline {
-  //   margin: 30px 15px 0px 15px;
-  // }
-
-  // rpTimesig: {
-  //   flexDirection: 'column',
-  //   fontSize: 60,
-  //   fontFamily: 'Bravura',
-  // },
-
-  // .rp-tupletbrackets {
-  //   display: flex;
-  //   width: 100%;
-  //   justify-content: space-between;
-  //   position: absolute;
-  // }
-
-  // .rp-bracketcontainer {
-  //   display: flex;
-  //   width: 100%;
-  //   justify-content: space-between;
-  // }
-
-  // .rp-tupletspacer {
-  //   width: 20px;
-  // }
-
-  // .rp-tupletvalue {
-  //   margin-top: -60px;
-  // }
-
-  // .rp-spacer {
-  //   width: 15px;
-  // }
-
-  // .rp-quicktip {
-  //   background-color: white;
-  //   font-family: "Raleway", sans-serif;
-  //   font-size: 18px;
-  //   max-width: 300px;
-  // }
-
-  // @media (max-width: 850px) {
-  //   #start {
-  //     width: 120px;
-  //     height: 60px;
-  //   }
-  //   #stop {
-  //     width: 120px;
-  //     height: 60px;
-  //   }
-
+  rpBarline: {
+    fontFamily: 'Bravura',
+    fontSize: FONT_SIZE,
+    paddingTop: FONT_SIZE / 2,
+    paddingLeft: 20,
+    paddingRight: 10,
+  },
   instructions: {
     alignSelf: 'stretch',
     padding: 30,
     fontFamily: 'Raleway-Medium',
   },
 
-  //   .rp-controlpanel {
-  //     font-size: 14px;
-  //     height: 100px;
-  //   }
-  //   .title {
-  //     font-size: 30px;
-  //   }
-  // }
+  startButton: {
+    width: 120,
+    height: 50,
+    padding: 10,
+    backgroundColor: 'green',
+    borderRadius: 10,
+  },
+
+  stopButton: {
+    width: 120,
+    height: 50,
+    padding: 10,
+    backgroundColor: 'red',
+    borderRadius: 10,
+  },
+
+  rpTupletBrackets: {
+    flexDirection: 'row',
+  },
 });
