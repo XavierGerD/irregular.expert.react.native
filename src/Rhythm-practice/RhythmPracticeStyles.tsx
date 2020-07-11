@@ -69,7 +69,7 @@ export const rhythmPracticeStyles = StyleSheet.create({
     alignSelf: 'center',
     left: 0,
     top: 0,
-    paddingTop: FONT_SIZE / 2,
+    paddingTop: FONT_SIZE / 2 + 3,
     transform: [{scaleX: 60}],
   },
 
@@ -102,7 +102,27 @@ export const rhythmPracticeStyles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  rpTupletBrackets: {
+  rpTimeSignatureNumerator: {
+    fontFamily: 'Bravura',
+    fontSize: 60,
+    marginTop: -76,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+
+  rpTimeSignatureDenominator: {
+    fontFamily: 'Bravura',
+    fontSize: 60,
+    marginTop: -200,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+
+  rpBar: {
     flexDirection: 'row',
+  },
+
+  rpEmptyTupletBox: {
+    height: FONT_SIZE,
   },
 });

@@ -29,10 +29,15 @@ let checkFirst = (figure: number[], value: string, mode: string) => {
     return (
       <View style={{flexDirection: 'row', marginRight: 20}}>
         <Text style={BeamCheckerStyle.rpBravura}>{completeNotes.beamless}</Text>
+        {mode === 'tuplet' && (
+          <Text style={BeamCheckerStyle.rpEighthflag}>
+            {flagCodes[value].up}
+          </Text>
+        )}
       </View>
     );
     //if the current beat is a rest, push a rest
-  } else if (firstNoteIsOff && secondNoteIsOff) {
+  } else if (firstNoteIsOff && secondNoteIsOff && mode === 'bar') {
     return <Text style={BeamCheckerStyle.rpRest}>{restCodes['quarter']}</Text>;
   } else if (firstNoteIsOff) {
     return <Text style={BeamCheckerStyle.rpRest}>{restCodes[value]}</Text>;
@@ -76,10 +81,13 @@ let checkMid = (figure: number[], i: number, value: string, mode: string) => {
         <Text style={BeamCheckerStyle.rpEighthflag}>{flagCodes[value].up}</Text>
       </View>
     );
+  } else if (previousNoteIsOn && currentNoteIsOff && nextNoteIsOn) {
+    return <Text style={BeamCheckerStyle.rpRest}>{restCodes[value]}</Text>;
+    //if the current beat is a rest, push a rest
   } else if (previousNoteIsOn && currentNoteIsOff) {
     return <View />;
     //if the current beat is a rest, push a rest
-  } else if (previousNoteIsOff && currentNoteIsOff) {
+  } else if (previousNoteIsOff && currentNoteIsOff && mode === 'bar') {
     return <View />;
     //if the current beat is a rest, push a rest
   } else if (currentNoteIsOff && mode === 'tuplet') {
@@ -100,7 +108,7 @@ let checkLast = (figure: number[], value: string, mode: string) => {
 
   if (penultimateNoteIsOn && lastNoteIsOn) {
     return <Text style={BeamCheckerStyle.rpNote}>{completeNotes[value]}</Text>;
-  } else if (lastNoteIsOff && penultimateNoteIsOn) {
+  } else if (penultimateNoteIsOn && lastNoteIsOff) {
     return (
       <View style={BeamCheckerStyle.rpNote}>
         <Text style={BeamCheckerStyle.rpBravura}>{completeNotes.beamless}</Text>
@@ -108,27 +116,34 @@ let checkLast = (figure: number[], value: string, mode: string) => {
       </View>
     );
   } else if (
-    lastNoteIsOn &&
     penultimateNoteIsOff &&
+    lastNoteIsOn &&
     figure.length === 3 &&
     mode === 'bar'
   ) {
     return <Text style={BeamCheckerStyle.rpRest}>{restCodes[value]}</Text>;
   } else if (
-    lastNoteIsOn &&
     penultimateNoteIsOff &&
+    lastNoteIsOn &&
     figure.length === 2 &&
     mode === 'bar'
   ) {
     return <View />;
   } else if (
-    lastNoteIsOff &&
     penultimateNoteIsOff &&
+    lastNoteIsOn &&
+    figure.length === 2 &&
+    mode === 'tuplet'
+  ) {
+    return <Text style={BeamCheckerStyle.rpRest}>{restCodes[value]}</Text>;
+  } else if (
+    penultimateNoteIsOff &&
+    lastNoteIsOff &&
     figure.length === 3 &&
     mode === 'bar'
   ) {
     return <Text style={BeamCheckerStyle.rpRest}>{restCodes[value]}</Text>;
-  } else if (lastNoteIsOff && penultimateNoteIsOff && mode === 'bar') {
+  } else if (penultimateNoteIsOff && lastNoteIsOff && mode === 'bar') {
     return <View />;
   } else if (penultimateNoteIsOff) {
     return <Text style={BeamCheckerStyle.rpRest}>{restCodes[value]}</Text>;

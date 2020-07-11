@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-import {rhythmPracticeStyles} from './RhythmPracticeStyles';
 import {tupletBracketCodes, tupletCodes} from '../UnicodeAssignment';
+import {tupletBracketCheckerStyle} from './TupletBracketCheckerStyle';
 
 const tupletChecker = (tupletValue: number[]) => {
   switch (tupletValue[0]) {
@@ -21,12 +21,18 @@ const tupletChecker = (tupletValue: number[]) => {
   }
 };
 
-const fillInTuplets = (size: number[]): JSX.Element[] => [
-  <Text style={rhythmPracticeStyles.rpBravura}>{tupletBracketCodes.left}</Text>,
-  <Text style={rhythmPracticeStyles.rpBravura}>{tupletChecker(size)}</Text>,
-  <Text style={rhythmPracticeStyles.rpBravura}>
-    {tupletBracketCodes.right}
-  </Text>,
-];
+const fillInTuplets = (size: number[]): JSX.Element => (
+  <View style={tupletBracketCheckerStyle.rpTupletBracketsContainer}>
+    <Text style={tupletBracketCheckerStyle.tupletBracket}>
+      {tupletBracketCodes.left}
+    </Text>
+    <Text style={tupletBracketCheckerStyle.tupletValue}>
+      {tupletChecker(size)}
+    </Text>
+    <Text style={tupletBracketCheckerStyle.tupletBracket}>
+      {tupletBracketCodes.right}
+    </Text>
+  </View>
+);
 
 export {fillInTuplets};

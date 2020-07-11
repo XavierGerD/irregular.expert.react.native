@@ -1,5 +1,8 @@
-import {checkFirst, checkLast, checkMid} from './beamchecker';
+import React from 'react';
+import {View} from 'react-native';
+import {checkFirst, checkLast, checkMid} from './BeamChecker';
 import {reducer} from './reducer';
+import {FONT_SIZE} from 'src/constants';
 
 export const getRandomTimeSig = (size: number[][], mode: string): number[] => {
   //obtain a random time signature or tuplet value from all possible user-entered values
@@ -60,16 +63,35 @@ export const getFigure = (
   currentFigures.push(binaryFigures.flat());
 
   // translate the binary figure into a series of divs containing unicode characters
-  let unicodeFigures: JSX.Element[] = binaryFigures
-    .map((figure) => {
-      return figure.map((beat: number, i: number) => {
-        if (i === 0) return checkFirst(figure, value, mode);
-        if (i > 0 && i < figure.length - 1)
-          return checkMid(figure, i, value, mode);
-        return checkLast(figure, value, mode);
-      });
-    })
-    .flat();
+  let unicodeFigures: JSX.Element[] = binaryFigures.map((figure) => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+        }}>
+        {console.log(figure)}
+        {figure.map((beat: number, i: number) => {
+          if (i === 0)
+            return (
+              <View style={{flexDirection: 'row'}} key={beat + '' + i}>
+                {checkFirst(figure, value, mode)}
+              </View>
+            );
+          if (i > 0 && i < figure.length - 1)
+            return (
+              <View style={{flexDirection: 'row'}} key={beat + '' + i}>
+                {checkMid(figure, i, value, mode)}
+              </View>
+            );
+          return (
+            <View style={{flexDirection: 'row'}} key={beat + '' + i}>
+              {checkLast(figure, value, mode)}
+            </View>
+          );
+        })}
+      </View>
+    );
+  });
 
   return unicodeFigures;
 };

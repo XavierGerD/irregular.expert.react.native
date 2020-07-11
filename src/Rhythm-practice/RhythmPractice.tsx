@@ -4,7 +4,7 @@ import {Button, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 
 import {getRandomTimeSig, getFigure} from './utils';
-import {fillInTuplets} from './tupletBracketChecker';
+import {fillInTuplets} from './TupletBracketChecker';
 import getTimeSig from './render';
 import {barlines, singleStaff, timeSignatureCodes} from '../UnicodeAssignment';
 // import Instructions from "./Instructions.jsx";
@@ -25,7 +25,7 @@ interface IRhythmPracticeState {
   binaryFigures: number[][];
   displayedTimeSignatures: string[] | undefined[];
   displayedFigures: JSX.Element[][];
-  displayedTuplets: (JSX.Element[] | null)[];
+  displayedTuplets: JSX.Element[];
   started: boolean;
   countDownCheck: boolean;
   allowEmptyBars: boolean;
@@ -157,10 +157,11 @@ class RhythmPractice extends Component {
       displayedTuplets.shift();
       //push new unicode tuplet
       displayedTuplets.push(fillInTuplets(e));
-      console.log(displayedTuplets);
       //if tuplet is 4, don't show tuplet brackets
       if (e[0] === 4) {
-        displayedTuplets[1] = null;
+        displayedTuplets[1] = (
+          <View style={rhythmPracticeStyles.rpEmptyTupletBox}></View>
+        );
       }
     }
     this.setState({
@@ -326,7 +327,9 @@ class RhythmPractice extends Component {
             displayedTuplets.push(fillInTuplets(timeSignatures));
 
             if (timeSignatures[0] === 4) {
-              displayedTuplets[i] = null;
+              displayedTuplets[i] = (
+                <View style={rhythmPracticeStyles.rpEmptyTupletBox}></View>
+              );
             }
 
             return getTimeSig([1], this.state.mode);
@@ -413,23 +416,11 @@ class RhythmPractice extends Component {
                         marginTop: 80,
                       }}>
                       <Text
-                        style={{
-                          fontFamily: 'Bravura',
-                          fontSize: 60,
-                          marginTop: -80,
-                          marginLeft: 10,
-                          marginRight: 10,
-                        }}>
+                        style={rhythmPracticeStyles.rpTimeSignatureNumerator}>
                         {this.state.displayedTimeSignatures[i]}
                       </Text>
                       <Text
-                        style={{
-                          fontFamily: 'Bravura',
-                          fontSize: 60,
-                          marginTop: -200,
-                          marginLeft: 10,
-                          marginRight: 10,
-                        }}>
+                        style={rhythmPracticeStyles.rpTimeSignatureDenominator}>
                         {this.state.mode === 'bar' &&
                           this.state.timeSignatures[i] === 8 &&
                           timeSignatureCodes.four}
@@ -440,11 +431,22 @@ class RhythmPractice extends Component {
                           timeSignatureCodes.four}
                       </Text>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                      <View style={rhythmPracticeStyles.rpTupletBrackets}>
-                        {this.state.displayedTuplets[i]}
+                    <View
+                      style={{
+                        flexDirection: 'column',
+                      }}>
+                      {this.state.mode === 'tuplet' ? (
+                        this.state.displayedTuplets[i]
+                      ) : (
+                        <View
+                          style={rhythmPracticeStyles.rpEmptyTupletBox}></View>
+                      )}
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                        }}>
+                        {bar}
                       </View>
-                      {bar}
                     </View>
                     {i === 0 && (
                       <Text style={rhythmPracticeStyles.rpBarline}>
